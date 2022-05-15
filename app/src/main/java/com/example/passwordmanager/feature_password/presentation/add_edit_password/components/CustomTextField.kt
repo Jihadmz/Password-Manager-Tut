@@ -1,35 +1,34 @@
 package com.example.passwordmanager.feature_password.presentation.add_edit_password.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 
 @Composable
 fun CustomTextField(
+    modifier: Modifier = Modifier,
     text: String,
     hint: String,
-    isHintVisible: Boolean,
+    isNotes: Boolean = false,
     textStyle: TextStyle = TextStyle(),
-    onFocusChange: (FocusState) -> Unit,
     onTextChange: (String) -> Unit,
     leadingIcon: @Composable () -> Unit,
 ) {
 
     TextField(
+        modifier = modifier.fillMaxWidth(0.8f),
         value = text,
         onValueChange = onTextChange,
         textStyle = textStyle,
         leadingIcon = leadingIcon,
-        modifier = Modifier.onFocusChanged {
-            onFocusChange(it)
-        },
+        singleLine = !isNotes,
         label = {
-//            if (isHintVisible) Text(text = hint) else
-//                Text(text = "")
             Text(text = hint)
         },
     )

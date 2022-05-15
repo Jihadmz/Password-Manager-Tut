@@ -1,5 +1,6 @@
 package com.example.passwordmanager.feature_password.presentation.passwords
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +19,7 @@ import androidx.navigation.NavController
 import com.example.passwordmanager.feature_password.presentation.passwords.components.PasswordItem
 import com.example.passwordmanager.feature_password.presentation.util.Screens
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PasswordsScreen(
     navController: NavController,
@@ -46,6 +48,7 @@ fun PasswordsScreen(
             ){ _, password ->
 
                 PasswordItem(
+                    modifier = Modifier.animateItemPlacement(),
                     password = password,
                     onDeleteClick = {
                         viewModel.onEvent(PasswordsEvents.DeletePassword(password))

@@ -58,70 +58,58 @@ fun AddEditPasswordScreen(
 
             Column {
 
-                CustomTextField(
-                    text = serviceState.text,
-                    hint = serviceState.hint,
-                    isHintVisible = serviceState.isHintVisible,
-                    onFocusChange = {
-                        viewModel.onEvent(AddEditPasswordEvent.ChangeServiceFocus(it))
-                    },
-                    onTextChange = {
-                        viewModel.onEvent(AddEditPasswordEvent.EnteringService(it))
-                    },
-                    leadingIcon = {
-                        Icon(imageVector = Icons.Filled.Web, contentDescription = "Service")
-                    })
+                    CustomTextField(
+                        text = serviceState.text,
+                        hint = serviceState.hint,
+                        onTextChange = {
+                            viewModel.onEvent(AddEditPasswordEvent.EnteringService(it))
+                        },
+                        leadingIcon = {
+                            Icon(imageVector = Icons.Filled.MiscellaneousServices, contentDescription = "Service")
+                        })
 
                 Spacer(modifier = Modifier.padding(20.dp))
 
-                CustomTextField(
-                    text = userNameState.text,
-                    hint = userNameState.hint,
-                    isHintVisible = userNameState.isHintVisible,
-                    onFocusChange = {
-                        viewModel.onEvent(AddEditPasswordEvent.ChangeUserNameFocus(it))
-                    },
-                    onTextChange = {
-                        viewModel.onEvent(AddEditPasswordEvent.EnteringUserName(it))
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.VerifiedUser,
-                            contentDescription = "UserName"
-                        )
-                    })
+                    CustomTextField(
+                        text = userNameState.text,
+                        hint = userNameState.hint,
+                        onTextChange = {
+                            viewModel.onEvent(AddEditPasswordEvent.EnteringUserName(it))
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Person,
+                                contentDescription = "UserName"
+                            )
+                        })
 
                 Spacer(modifier = Modifier.padding(20.dp))
 
-                CustomTextField(
-                    text = passwordState.text,
-                    hint = passwordState.hint,
-                    isHintVisible = passwordState.isHintVisible,
-                    onFocusChange = {
-                        viewModel.onEvent(AddEditPasswordEvent.ChangePasswordFocus(it))
-                    },
-                    onTextChange = {
-                        viewModel.onEvent(AddEditPasswordEvent.EnteringPassword(it))
-                    },
-                    leadingIcon = {
-                        Icon(imageVector = Icons.Filled.Password, contentDescription = "Password")
-                    })
+                    CustomTextField(
+                        text = passwordState.text,
+                        hint = passwordState.hint,
+                        onTextChange = {
+                            viewModel.onEvent(AddEditPasswordEvent.EnteringPassword(it))
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Password,
+                                contentDescription = "Password"
+                            )
+                        })
 
                 Spacer(modifier = Modifier.padding(20.dp))
 
-                CustomTextField(
-                    text = notesState.text,
-                    hint = notesState.hint,
-                    isHintVisible = notesState.isHintVisible,
-                    onFocusChange = {
-                        viewModel.onEvent(AddEditPasswordEvent.ChangeNotesFocus(it))
-                    },
-                    onTextChange = {
-                        viewModel.onEvent(AddEditPasswordEvent.EnteringNotes(it))
-                    },
-                    leadingIcon = {
-                        Icon(imageVector = Icons.Filled.Notes, contentDescription = "Notes")
-                    })
+                    CustomTextField(
+                        text = notesState.text,
+                        hint = notesState.hint,
+                        isNotes = true,
+                        onTextChange = {
+                            viewModel.onEvent(AddEditPasswordEvent.EnteringNotes(it))
+                        },
+                        leadingIcon = {
+                            Icon(imageVector = Icons.Filled.Notes, contentDescription = "Notes")
+                        })
             }
         }
     }

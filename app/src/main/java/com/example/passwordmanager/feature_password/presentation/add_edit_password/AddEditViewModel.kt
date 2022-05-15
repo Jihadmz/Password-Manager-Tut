@@ -1,6 +1,5 @@
 package com.example.passwordmanager.feature_password.presentation.add_edit_password
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -48,22 +47,18 @@ class AddEditViewModel @Inject constructor(
                     useCases.getPasswordById(passwordId).let { password ->
                         _serviceState.value = _serviceState.value.copy(
                             text = password.service,
-                            isHintVisible = false
                         )
                         _passwordState.value = _passwordState.value.copy(
                             text = password.password,
-                            isHintVisible = false
                         )
                         password.userName?.let { userName ->
                             _userNameState.value = _userNameState.value.copy(
                                 text = userName,
-                                isHintVisible = false
                             )
                         }
                         password.note?.let { notes ->
                             _notesState.value = _notesState.value.copy(
                                 text = notes,
-                                isHintVisible = false
                             )
                         }
                     }
@@ -93,22 +88,10 @@ class AddEditViewModel @Inject constructor(
                     )
             }
 
-            is AddEditPasswordEvent.ChangeServiceFocus -> {
-                    _serviceState.value = _serviceState.value.copy(
-                        isHintVisible = !event.value.isFocused && _serviceState.value.text.isBlank()
-                    )
-            }
-
             is AddEditPasswordEvent.EnteringPassword -> {
                     _passwordState.value = _passwordState.value.copy(
                         text = event.value
                     )
-            }
-
-            is AddEditPasswordEvent.ChangePasswordFocus -> {
-                _passwordState.value = _passwordState.value.copy(
-                    isHintVisible = !event.value.isFocused && _passwordState.value.text.isBlank()
-                )
             }
 
             is AddEditPasswordEvent.EnteringUserName -> {
@@ -117,21 +100,9 @@ class AddEditViewModel @Inject constructor(
                 )
             }
 
-            is AddEditPasswordEvent.ChangeUserNameFocus -> {
-                _userNameState.value = _userNameState.value.copy(
-                    isHintVisible = !event.value.isFocused && _userNameState.value.text.isBlank()
-                )
-            }
-
             is AddEditPasswordEvent.EnteringNotes -> {
                 _notesState.value = _notesState.value.copy(
                     text = event.value
-                )
-            }
-
-            is AddEditPasswordEvent.ChangeNotesFocus -> {
-                _notesState.value = _notesState.value.copy(
-                    isHintVisible = !event.value.isFocused && _notesState.value.text.isBlank()
                 )
             }
         }

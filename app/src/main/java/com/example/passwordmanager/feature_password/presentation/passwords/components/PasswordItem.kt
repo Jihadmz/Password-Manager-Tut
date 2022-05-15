@@ -15,13 +15,14 @@ import com.example.passwordmanager.feature_password.domain.model.Password
 
 @Composable
 fun PasswordItem(
+    modifier: Modifier = Modifier,
     password: Password,
     onDeleteClick: () -> Unit,
     onItemClick: () -> Unit
 ) {
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .clickable {
                 onItemClick()
