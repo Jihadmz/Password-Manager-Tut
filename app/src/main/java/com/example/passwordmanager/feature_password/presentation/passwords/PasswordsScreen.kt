@@ -5,19 +5,18 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.passwordmanager.feature_password.presentation.passwords.components.PasswordItem
 import com.example.passwordmanager.feature_password.presentation.util.Screens
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -27,6 +26,7 @@ fun PasswordsScreen(
 ) {
 
     val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -52,6 +52,15 @@ fun PasswordsScreen(
                     password = password,
                     onDeleteClick = {
                         viewModel.onEvent(PasswordsEvents.DeletePassword(password))
+                        scope.launch {
+                            val result = scaffoldState.snackbarHostState.showSnackbar(
+                                message = "Password Deleted",
+                                actionLabel = "Undo"
+                            )
+                            if (result == SnackbarResult.ActionPerformed){
+                                viewModel.onEvent(PasswordsEvents.RestorePassword)
+                            }
+                        }
                     },
                     onItemClick = {
                         navController.navigate(Screens.AddEditPasswordScreen.route + "?passwordId=${password.id}")
